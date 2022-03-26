@@ -2,17 +2,36 @@ package com.ecommerce.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "ordenes")
 public class Orden {
-	private Integer is;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	private String numero;
 	private Date fechaCreacion;
 	private Date fechaRecibida;
 	
 	private double total;
+	
+	@ManyToOne
+	private Usuario usuario;
+	
+	@OneToOne(mappedBy = "orden")
+	private DetalleOrden detalle;
 
-	public Orden(Integer is, String numero, Date fechaCreacion, Date fechaRecibida, double total) {
+	public Orden(Integer id, String numero, Date fechaCreacion, Date fechaRecibida, double total) {
 		super();
-		this.is = is;
+		this.id = id;
 		this.numero = numero;
 		this.fechaCreacion = fechaCreacion;
 		this.fechaRecibida = fechaRecibida;
@@ -22,14 +41,6 @@ public class Orden {
 	//---Generamos un constructor vacio ---
 	public Orden() {
 		
-	}
-
-	public Integer getIs() {
-		return is;
-	}
-
-	public void setIs(Integer is) {
-		this.is = is;
 	}
 
 	public String getNumero() {
@@ -63,10 +74,35 @@ public class Orden {
 	public void setTotal(double total) {
 		this.total = total;
 	}
+	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public DetalleOrden getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(DetalleOrden detalle) {
+		this.detalle = detalle;
+	}
 
 	@Override
 	public String toString() {
-		return "Orden [is=" + is + ", numero=" + numero + ", fechaCreacion=" + fechaCreacion + ", fechaRecibida="
+		return "Orden [id=" + id + ", numero=" + numero + ", fechaCreacion=" + fechaCreacion + ", fechaRecibida="
 				+ fechaRecibida + ", total=" + total + "]";
 	}
 	
